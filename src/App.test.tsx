@@ -1,139 +1,70 @@
-import { act, screen } from "@testing-library/react"
+import { screen, waitFor } from "@testing-library/react"
 import { App } from "./App"
 import { renderWithProviders } from "./utils/test-utils"
 
-test("App should have correct initial render", () => {
-  renderWithProviders(<App />)
+const mockCartResponse = {
+  carts: [
+    {
+      id: 1,
+      userId: 99,
+      total: 250,
+      discountedTotal: 220,
+      totalProducts: 2,
+      totalQuantity: 3,
+      products: [
+        {
+          id: 10,
+          title: "Phone",
+          price: 100,
+          quantity: 1,
+          total: 100,
+          discountPercentage: 10,
+          discountedTotal: 90,
+        },
+        {
+          id: 11,
+          title: "Case",
+          price: 75,
+          quantity: 2,
+          total: 150,
+          discountPercentage: 13.33,
+          discountedTotal: 130,
+        },
+      ],
+    },
+  ],
+  total: 1,
+  skip: 0,
+  limit: 10,
+}
 
-  const countLabel = screen.getByLabelText<HTMLLabelElement>("Count")
-
-  const incrementValueInput = screen.getByLabelText<HTMLInputElement>(
-    "Set increment amount",
-  )
-
-  expect(screen.getByText(/learn/i)).toBeInTheDocument()
-
-  expect(countLabel).toHaveTextContent("0")
-  expect(incrementValueInput).toHaveValue(2)
-})
-
-test("Increment value and Decrement value should work as expected", async () => {
-  const { user } = renderWithProviders(<App />)
-
-  const countLabel = screen.getByLabelText<HTMLLabelElement>("Count")
-
-  const incrementValueButton =
-    screen.getByLabelText<HTMLButtonElement>("Increment value")
-
-  const decrementValueButton =
-    screen.getByLabelText<HTMLButtonElement>("Decrement value")
-
-  await user.click(incrementValueButton)
-  expect(countLabel).toHaveTextContent("1")
-
-  await user.click(decrementValueButton)
-  expect(countLabel).toHaveTextContent("0")
-})
-
-test("Add Amount should work as expected", async () => {
-  const { user } = renderWithProviders(<App />)
-
-  const countLabel = screen.getByLabelText<HTMLLabelElement>("Count")
-
-  const incrementValueInput = screen.getByLabelText<HTMLInputElement>(
-    "Set increment amount",
-  )
-
-  const addAmountButton = screen.getByText<HTMLButtonElement>("Add Amount")
-
-  await user.click(addAmountButton)
-  expect(countLabel).toHaveTextContent("2")
-
-  await user.clear(incrementValueInput)
-  await user.type(incrementValueInput, "2")
-  await user.click(addAmountButton)
-  expect(countLabel).toHaveTextContent("4")
-
-  await user.clear(incrementValueInput)
-  await user.type(incrementValueInput, "-1")
-  await user.click(addAmountButton)
-  expect(countLabel).toHaveTextContent("3")
-})
-
-it("Add Async should work as expected", async () => {
-  vi.useFakeTimers({ shouldAdvanceTime: true })
-
-  const { user } = renderWithProviders(<App />)
-
-  const addAsyncButton = screen.getByText<HTMLButtonElement>("Add Async")
-
-  const countLabel = screen.getByLabelText<HTMLLabelElement>("Count")
-
-  const incrementValueInput = screen.getByLabelText<HTMLInputElement>(
-    "Set increment amount",
-  )
-
-  await user.click(addAsyncButton)
-
-  await act(async () => {
-    await vi.advanceTimersByTimeAsync(500)
+describe("App", () => {
+  beforeEach(() => {
+    vi.spyOn(globalThis, "fetch").mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve(mockCartResponse),
+    } as Response)
   })
 
-  expect(countLabel).toHaveTextContent("2")
-
-  await user.clear(incrementValueInput)
-  await user.type(incrementValueInput, "2")
-
-  await user.click(addAsyncButton)
-  await act(async () => {
-    await vi.advanceTimersByTimeAsync(500)
+  afterEach(() => {
+    vi.restoreAllMocks()
   })
 
-  expect(countLabel).toHaveTextContent("4")
+  test("renders the carts view and fetches carts on load", async () => {
+    renderWithProviders(<App />)
 
-  await user.clear(incrementValueInput)
-  await user.type(incrementValueInput, "-1")
-  await user.click(addAsyncButton)
+    expect(screen.getByText("Loading...")).toBeInTheDocument()
 
-  await act(async () => {
-    await vi.advanceTimersByTimeAsync(500)
+    await waitFor(() => {
+      expect(globalThis.fetch).toHaveBeenCalledWith(
+        "https://dummyjson.com/carts?limit=10",
+      )
+    })
+
+    expect(
+      await screen.findByText("Select the Quantity of Carts to Fetch:"),
+    ).toBeInTheDocument()
+    expect(screen.getByText("Cart #1")).toBeInTheDocument()
+    expect(screen.getByText("Phone x 1")).toBeInTheDocument()
   })
-
-  expect(countLabel).toHaveTextContent("3")
-
-  vi.useRealTimers()
-})
-
-test("Add If Odd should work as expected", async () => {
-  const { user } = renderWithProviders(<App />)
-
-  const countLabel = screen.getByLabelText<HTMLLabelElement>("Count")
-
-  const addIfOddButton = screen.getByText<HTMLButtonElement>("Add If Odd")
-
-  const incrementValueInput = screen.getByLabelText<HTMLInputElement>(
-    "Set increment amount",
-  )
-
-  const incrementValueButton =
-    screen.getByLabelText<HTMLButtonElement>("Increment value")
-
-  await user.click(addIfOddButton)
-  expect(countLabel).toHaveTextContent("0")
-
-  await user.click(incrementValueButton)
-  expect(countLabel).toHaveTextContent("1")
-
-  await user.click(addIfOddButton)
-  expect(countLabel).toHaveTextContent("3")
-
-  await user.clear(incrementValueInput)
-  await user.type(incrementValueInput, "1")
-  await user.click(addIfOddButton)
-  expect(countLabel).toHaveTextContent("4")
-
-  await user.clear(incrementValueInput)
-  await user.type(incrementValueInput, "-1")
-  await user.click(addIfOddButton)
-  expect(countLabel).toHaveTextContent("4")
 })

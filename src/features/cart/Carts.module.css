@@ -19,7 +19,7 @@
   align-items: center;
 }
 
-.orderCard {
+.cartCard {
   width: min(700px, 100%);
   margin-top: 16px;
   padding: 16px;
@@ -28,7 +28,7 @@
   text-align: left;
 }
 
-.orderMeta {
+.cartMeta {
   margin: 8px 0 0;
 }
 
