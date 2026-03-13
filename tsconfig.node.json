@@ -8,7 +8,6 @@
     "allowJs": true,
     "checkJs": true,
 
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
@@ -16,7 +15,6 @@
     "noEmit": true,
     "resolveJsonModule": true,
 
-    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,

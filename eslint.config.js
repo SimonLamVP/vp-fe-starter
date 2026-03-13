@@ -1,12 +1,13 @@
+import { defineConfig } from "eslint/config"
 import js from "@eslint/js"
 import vitestPlugin from "@vitest/eslint-plugin"
 import prettierConfig from "eslint-config-prettier/flat"
 import reactPlugin from "eslint-plugin-react"
 import reactHooksPlugin from "eslint-plugin-react-hooks"
 import globals from "globals"
-import { config, configs } from "typescript-eslint"
+import tseslint from "typescript-eslint"
 
-const eslintConfig = config(
+const eslintConfig = defineConfig(
   {
     name: "global-ignores",
     ignores: [
@@ -25,8 +26,8 @@ const eslintConfig = config(
     name: `${js.meta.name}/recommended`,
     ...js.configs.recommended,
   },
-  configs.strictTypeChecked,
-  configs.stylisticTypeChecked,
+  tseslint.configs.strictTypeChecked,
+  tseslint.configs.stylisticTypeChecked,
   vitestPlugin.configs.recommended,
   {
     name: "eslint-plugin-react/jsx-runtime",
@@ -75,6 +76,13 @@ const eslintConfig = config(
           ],
         },
       ],
+    },
+  },
+  {
+    name: "hooks-typed-imports",
+    files: ["src/app/hooks.ts"],
+    rules: {
+      "no-restricted-imports": [0],
     },
   },
 
