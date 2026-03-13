@@ -1,5 +1,5 @@
 import "./App.css"
-import { Quotes } from "./features/quotes/Quotes"
+import { Orders } from "./features/orders/Orders"
 import logo from "./logo.svg"
 
 export const App = () => (
@@ -9,7 +9,7 @@ export const App = () => (
       <p>
         Edit <code>src/App.tsx</code> and save to reload.
       </p>
-      <Quotes />
+      <Orders />
       <span>
         <span>Learn </span>
         <a

@@ -18,3 +18,20 @@
   flex-direction: column;
   align-items: center;
 }
+
+.orderCard {
+  width: min(700px, 100%);
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: rgba(112, 76, 182, 0.08);
+  text-align: left;
+}
+
+.orderMeta {
+  margin: 8px 0 0;
+}
+
+.productList {
+  margin: 12px 0 0;
+}

@@ -1,10 +1,10 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit"
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
+import { ordersReducer } from "../features/orders/ordersSlice"
 import { requestStatusReducer } from "../features/requestStatus/requestStatusSlice"
-import { quotesReducer } from "../features/quotes/quotesSlice"
 
 const rootReducer = combineReducers({
-  quotes: quotesReducer,
+  orders: ordersReducer,
   requestStatus: requestStatusReducer,
 })
 

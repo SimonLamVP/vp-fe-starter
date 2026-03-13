@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import type { UnknownAction } from "@reduxjs/toolkit"
 import type { RootState } from "../../app/store"
-import { fetchQuotes } from "../quotes/quotesSlice"
+import { fetchOrders } from "../orders/ordersSlice"
 
 export type RequestStatus = {
   status: "idle" | "loading" | "succeeded" | "failed"
@@ -16,7 +16,7 @@ const idleRequestStatus: RequestStatus = { status: "idle" }
 
 const initialState: RequestStatusState = {
   requests: {
-    [fetchQuotes.typePrefix]: idleRequestStatus,
+    [fetchOrders.typePrefix]: idleRequestStatus,
   },
 }
 
@@ -84,5 +84,5 @@ export const selectRequestStatus = (
   key: string,
 ): RequestStatus => state.requestStatus.requests[key] ?? idleRequestStatus
 
-export const selectFetchQuotesRequestStatus = (state: RootState): RequestStatus =>
-  selectRequestStatus(state, fetchQuotes.typePrefix)
+export const selectFetchOrdersRequestStatus = (state: RootState): RequestStatus =>
+  selectRequestStatus(state, fetchOrders.typePrefix)
