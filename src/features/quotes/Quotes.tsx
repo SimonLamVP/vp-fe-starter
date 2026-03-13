@@ -1,13 +1,9 @@
 import type { JSX } from "react"
 import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import { selectFetchQuotesRequestStatus } from "../requestStatus/requestStatusSlice"
 import styles from "./Quotes.module.css"
-import {
-  fetchQuotes,
-  selectQuotes,
-  selectQuotesError,
-  selectQuotesStatus,
-} from "./quotesSlice"
+import { fetchQuotes, selectQuotes } from "./quotesSlice"
 
 const options = [5, 10, 20, 30]
 
@@ -15,22 +11,21 @@ export const Quotes = (): JSX.Element | null => {
   const dispatch = useAppDispatch()
   const [numberOfQuotes, setNumberOfQuotes] = useState(10)
   const quotes = useAppSelector(selectQuotes)
-  const status = useAppSelector(selectQuotesStatus)
-  const error = useAppSelector(selectQuotesError)
+  const request = useAppSelector(selectFetchQuotesRequestStatus)
 
   useEffect(() => {
     void dispatch(fetchQuotes(numberOfQuotes))
   }, [dispatch, numberOfQuotes])
 
-  if (status === "failed") {
+  if (request.status === "failed") {
     return (
       <div>
-        <h1>{error ?? "There was an error!!!"}</h1>
+        <h1>{request.error ?? "There was an error!!!"}</h1>
       </div>
     )
   }
 
-  if (status === "loading" || status === "idle") {
+  if (request.status === "loading" || request.status === "idle") {
     return (
       <div>
         <h1>Loading...</h1>

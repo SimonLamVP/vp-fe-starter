@@ -19,8 +19,6 @@ type QuotesState = {
   total: number
   skip: number
   limit: number
-  status: "idle" | "loading" | "succeeded" | "failed"
-  error: string | null
 }
 
 const initialState: QuotesState = {
@@ -28,8 +26,6 @@ const initialState: QuotesState = {
   total: 0,
   skip: 0,
   limit: 10,
-  status: "idle",
-  error: null,
 }
 
 export const fetchQuotes = createAsyncThunk<
@@ -57,21 +53,11 @@ const quotesSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder
-      .addCase(fetchQuotes.pending, state => {
-        state.status = "loading"
-        state.error = null
-      })
-      .addCase(fetchQuotes.fulfilled, (state, action) => {
-        state.status = "succeeded"
+    builder.addCase(fetchQuotes.fulfilled, (state, action) => {
         state.quotes = action.payload.quotes
         state.total = action.payload.total
         state.skip = action.payload.skip
         state.limit = action.payload.limit
-      })
-      .addCase(fetchQuotes.rejected, (state, action) => {
-        state.status = "failed"
-        state.error = action.payload ?? "Failed to fetch quotes"
       })
   },
 })
@@ -79,5 +65,3 @@ const quotesSlice = createSlice({
 export const quotesReducer = quotesSlice.reducer
 
 export const selectQuotes = (state: RootState) => state.quotes.quotes
-export const selectQuotesStatus = (state: RootState) => state.quotes.status
-export const selectQuotesError = (state: RootState) => state.quotes.error

@@ -1,9 +1,11 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit"
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
+import { requestStatusReducer } from "../features/requestStatus/requestStatusSlice"
 import { quotesReducer } from "../features/quotes/quotesSlice"
 
 const rootReducer = combineReducers({
   quotes: quotesReducer,
+  requestStatus: requestStatusReducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>
