@@ -3,7 +3,8 @@ import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { selectFetchCartsRequestStatus } from "../requestStatus/requestStatusSlice"
 import styles from "./Carts.module.css"
-import { fetchCarts, selectCarts } from "./cartSlice"
+import { fetchCarts } from "./cartThunks"
+import { selectCarts } from "./cartSlice"
 
 const options = [5, 10, 20, 30]
 

@@ -8,7 +8,7 @@ import {
   fetchCarts,
   fetchCartsByUserId,
   updateCart,
-} from "../cart/cartSlice"
+} from "../cart/cartThunks"
 
 export type RequestStatus = {
   status: "idle" | "loading" | "succeeded" | "failed"
