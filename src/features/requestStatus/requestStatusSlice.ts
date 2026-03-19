@@ -9,6 +9,13 @@ import {
   fetchCartsByUserId,
   updateCart,
 } from "../cart/cartThunks"
+import {
+  addProduct,
+  deleteProduct,
+  fetchProductById,
+  fetchProducts,
+  updateProduct,
+} from "../products/productThunks"
 
 export type RequestStatus = {
   status: "idle" | "loading" | "succeeded" | "failed"
@@ -29,6 +36,11 @@ const initialState: RequestStatusState = {
     [addCart.typePrefix]: idleRequestStatus,
     [updateCart.typePrefix]: idleRequestStatus,
     [deleteCart.typePrefix]: idleRequestStatus,
+    [fetchProducts.typePrefix]: idleRequestStatus,
+    [fetchProductById.typePrefix]: idleRequestStatus,
+    [addProduct.typePrefix]: idleRequestStatus,
+    [updateProduct.typePrefix]: idleRequestStatus,
+    [deleteProduct.typePrefix]: idleRequestStatus,
   },
 }
 
@@ -118,3 +130,23 @@ export const selectUpdateCartRequestStatus = (
 export const selectDeleteCartRequestStatus = (
   state: RootState,
 ): RequestStatus => selectRequestStatus(state, deleteCart.typePrefix)
+
+export const selectFetchProductsRequestStatus = (
+  state: RootState,
+): RequestStatus => selectRequestStatus(state, fetchProducts.typePrefix)
+
+export const selectFetchProductByIdRequestStatus = (
+  state: RootState,
+): RequestStatus => selectRequestStatus(state, fetchProductById.typePrefix)
+
+export const selectAddProductRequestStatus = (
+  state: RootState,
+): RequestStatus => selectRequestStatus(state, addProduct.typePrefix)
+
+export const selectUpdateProductRequestStatus = (
+  state: RootState,
+): RequestStatus => selectRequestStatus(state, updateProduct.typePrefix)
+
+export const selectDeleteProductRequestStatus = (
+  state: RootState,
+): RequestStatus => selectRequestStatus(state, deleteProduct.typePrefix)

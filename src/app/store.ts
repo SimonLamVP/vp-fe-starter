@@ -1,10 +1,12 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit"
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import { cartReducer } from "../features/cart/cartSlice"
+import { productReducer } from "../features/products/productSlice"
 import { requestStatusReducer } from "../features/requestStatus/requestStatusSlice"
 
 const rootReducer = combineReducers({
   cart: cartReducer,
+  product: productReducer,
   requestStatus: requestStatusReducer,
 })
 
