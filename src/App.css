@@ -1,54 +1,48 @@
 .App {
+  min-height: 100vh;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
   align-items: start;
-  padding: 24px;
-  text-align: center;
+  padding: 28px;
+  background:
+    linear-gradient(180deg, #5aa3ff 0%, #3d7ae6 38%, #2e5db3 100%);
+  text-align: left;
+  box-sizing: border-box;
 }
 
 .App-panel {
   min-width: 0;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
-}
-
-.App-header {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  overflow: hidden;
+  border: 1px solid #245edb;
+  border-radius: 10px 10px 8px 8px;
+  background: linear-gradient(180deg, #f4f9ff 0%, #dcecff 100%);
+  box-shadow:
+    0 0 0 1px #9fc3ff,
+    0 10px 24px rgba(10, 50, 120, 0.28);
 }
 
-.App-link {
-  color: rgb(112, 76, 182);
+.App-titleBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 12px;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.15px;
+  text-shadow: 0 1px 0 rgba(0, 0, 80, 0.45);
+  background:
+    linear-gradient(180deg, #6eb6ff 0%, #3c8df6 45%, #1657d6 100%);
+  border-bottom: 1px solid #1d4eb1;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  font-size: 14px;
 }
 
 @media (max-width: 900px) {
   .App {
     grid-template-columns: 1fr;
-  }
-}
-
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
+    padding: 18px;
   }
 }
