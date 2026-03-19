@@ -1,8 +1,8 @@
 import type { JSX } from "react"
 import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import { selectFetchProductsRequestStatus } from "../requestStatus/requestStatusSlice"
 import styles from "./Products.module.css"
+import { selectFetchProductsRequestStatus } from "./productSelectors"
 import { fetchProducts } from "./productThunks"
 import { selectProducts } from "./productSlice"
 
