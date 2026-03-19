@@ -1,8 +1,8 @@
 import type { JSX } from "react"
 import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import { selectRequestStatus } from "../requestStatus/requestStatusSlice"
 import styles from "./Products.module.css"
-import { selectFetchProductsRequestStatus } from "./productSelectors"
 import { fetchProducts } from "./productThunks"
 import { selectProducts } from "./productSlice"
 
@@ -12,7 +12,9 @@ export const Products = (): JSX.Element | null => {
   const dispatch = useAppDispatch()
   const [numberOfProducts, setNumberOfProducts] = useState(10)
   const products = useAppSelector(selectProducts)
-  const request = useAppSelector(selectFetchProductsRequestStatus)
+  const request = useAppSelector(state =>
+    selectRequestStatus(state, fetchProducts.typePrefix),
+  )
 
   useEffect(() => {
     void dispatch(fetchProducts(numberOfProducts))

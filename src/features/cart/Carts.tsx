@@ -1,8 +1,8 @@
 import type { JSX } from "react"
 import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import { selectRequestStatus } from "../requestStatus/requestStatusSlice"
 import styles from "./Carts.module.css"
-import { selectFetchCartsRequestStatus } from "./cartSelectors"
 import { fetchCarts } from "./cartThunks"
 import { selectCarts } from "./cartSlice"
 
@@ -12,7 +12,9 @@ export const Carts = (): JSX.Element | null => {
   const dispatch = useAppDispatch()
   const [numberOfCarts, setNumberOfCarts] = useState(10)
   const carts = useAppSelector(selectCarts)
-  const request = useAppSelector(selectFetchCartsRequestStatus)
+  const request = useAppSelector(state =>
+    selectRequestStatus(state, fetchCarts.typePrefix),
+  )
 
   useEffect(() => {
     void dispatch(fetchCarts(numberOfCarts))
