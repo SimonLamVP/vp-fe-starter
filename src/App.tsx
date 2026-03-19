@@ -4,7 +4,11 @@ import { Products } from "./features/products/Products"
 
 export const App = () => (
   <div className="App">
-    <Carts />
-    <Products />
+    <section className="App-panel">
+      <Carts />
+    </section>
+    <section className="App-panel">
+      <Products />
+    </section>
   </div>
 )

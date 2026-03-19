@@ -1,5 +1,14 @@
 .App {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+  padding: 24px;
   text-align: center;
+}
+
+.App-panel {
+  min-width: 0;
 }
 
 .App-logo {
@@ -24,6 +33,12 @@
 
 .App-link {
   color: rgb(112, 76, 182);
+}
+
+@media (max-width: 900px) {
+  .App {
+    grid-template-columns: 1fr;
+  }
 }
 
 @keyframes App-logo-float {
