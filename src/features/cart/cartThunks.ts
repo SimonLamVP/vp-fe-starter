@@ -18,6 +18,11 @@ const CART_ERRORS = {
   delete: "Failed to delete cart",
 } as const
 
+const delay = async (ms: number): Promise<void> =>
+  { await new Promise(resolve => {
+    setTimeout(resolve, ms)
+  }); }
+
 const parseJsonResponse = async <T>(
   response: Response,
   thunkApi: { rejectWithValue: (value: string) => unknown },
@@ -37,12 +42,15 @@ export const fetchCarts = createAsyncThunk<
 >("cart/fetchCarts", async (limit, thunkApi) => {
   try {
     const response = await fetch(`${CARTS_BASE_URL}?limit=${limit.toString()}`)
-
-    return await parseJsonResponse<CartListResponse>(
+    const carts = await parseJsonResponse<CartListResponse>(
       response,
       thunkApi,
       CART_ERRORS.list,
     )
+
+    await delay(1000)
+
+    return carts
   } catch {
     return thunkApi.rejectWithValue(CART_ERRORS.list)
   }

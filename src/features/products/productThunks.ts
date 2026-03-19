@@ -17,6 +17,11 @@ const PRODUCT_ERRORS = {
   delete: "Failed to delete product",
 } as const
 
+const delay = async (ms: number): Promise<void> =>
+  { await new Promise(resolve => {
+    setTimeout(resolve, ms)
+  }); }
+
 const parseJsonResponse = async <T>(
   response: Response,
   thunkApi: { rejectWithValue: (value: string) => unknown },
@@ -38,12 +43,15 @@ export const fetchProducts = createAsyncThunk<
     const response = await fetch(
       `${PRODUCTS_BASE_URL}?limit=${limit.toString()}`,
     )
-
-    return await parseJsonResponse<ProductListResponse>(
+    const products = await parseJsonResponse<ProductListResponse>(
       response,
       thunkApi,
       PRODUCT_ERRORS.list,
     )
+
+    await delay(1000)
+
+    return products
   } catch {
     return thunkApi.rejectWithValue(PRODUCT_ERRORS.list)
   }
