@@ -1,21 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import type { UnknownAction } from "@reduxjs/toolkit"
 import type { RootState } from "../../app/store"
-import {
-  addCart,
-  deleteCart,
-  fetchCartById,
-  fetchCarts,
-  fetchCartsByUserId,
-  updateCart,
-} from "../cart/cartThunks"
-import {
-  addProduct,
-  deleteProduct,
-  fetchProductById,
-  fetchProducts,
-  updateProduct,
-} from "../products/productThunks"
 
 export type RequestStatus = {
   status: "idle" | "loading" | "succeeded" | "failed"
@@ -29,19 +14,7 @@ type RequestStatusState = {
 const idleRequestStatus: RequestStatus = { status: "idle" }
 
 const initialState: RequestStatusState = {
-  requests: {
-    [fetchCarts.typePrefix]: idleRequestStatus,
-    [fetchCartById.typePrefix]: idleRequestStatus,
-    [fetchCartsByUserId.typePrefix]: idleRequestStatus,
-    [addCart.typePrefix]: idleRequestStatus,
-    [updateCart.typePrefix]: idleRequestStatus,
-    [deleteCart.typePrefix]: idleRequestStatus,
-    [fetchProducts.typePrefix]: idleRequestStatus,
-    [fetchProductById.typePrefix]: idleRequestStatus,
-    [addProduct.typePrefix]: idleRequestStatus,
-    [updateProduct.typePrefix]: idleRequestStatus,
-    [deleteProduct.typePrefix]: idleRequestStatus,
-  },
+  requests: {},
 }
 
 const isPendingAction = (
