@@ -116,7 +116,7 @@ describe("App", () => {
   test("renders the carts and products views and fetches data on load", async () => {
     renderWithProviders(<App />)
 
-    expect(screen.getAllByText("Loading...")).toHaveLength(2)
+    expect(screen.getAllByRole("status")).toHaveLength(2)
 
     await waitFor(() => {
       expect(globalThis.fetch).toHaveBeenCalledWith(

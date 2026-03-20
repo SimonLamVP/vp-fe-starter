@@ -30,8 +30,12 @@ export const Products = (): JSX.Element | null => {
 
   if (status === "loading" || status === "idle") {
     return (
-      <div>
-        <h1>Loading...</h1>
+      <div className={styles.loadingState}>
+        <div
+          className={styles.spinner}
+          role="status"
+          aria-label="Loading products"
+        />
       </div>
     )
   }
