@@ -12,7 +12,7 @@ export const Products = (): JSX.Element | null => {
   const dispatch = useAppDispatch()
   const [numberOfProducts, setNumberOfProducts] = useState(10)
   const products = useAppSelector(selectProducts)
-  const request = useAppSelector(state =>
+  const { error, status } = useAppSelector(state =>
     selectRequestStatus(state, fetchProducts.typePrefix),
   )
 
@@ -20,15 +20,15 @@ export const Products = (): JSX.Element | null => {
     void dispatch(fetchProducts(numberOfProducts))
   }, [dispatch, numberOfProducts])
 
-  if (request.status === "failed") {
+  if (status === "failed") {
     return (
       <div>
-        <h1>{request.error ?? "There was an error!!!"}</h1>
+        <h1>{error ?? "There was an error!!!"}</h1>
       </div>
     )
   }
 
-  if (request.status === "loading" || request.status === "idle") {
+  if (status === "loading" || status === "idle") {
     return (
       <div>
         <h1>Loading...</h1>

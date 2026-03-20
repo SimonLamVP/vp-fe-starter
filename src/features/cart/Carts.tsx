@@ -12,7 +12,7 @@ export const Carts = (): JSX.Element | null => {
   const dispatch = useAppDispatch()
   const [numberOfCarts, setNumberOfCarts] = useState(10)
   const carts = useAppSelector(selectCarts)
-  const request = useAppSelector(state =>
+  const { error, status } = useAppSelector(state =>
     selectRequestStatus(state, fetchCarts.typePrefix),
   )
 
@@ -20,15 +20,15 @@ export const Carts = (): JSX.Element | null => {
     void dispatch(fetchCarts(numberOfCarts))
   }, [dispatch, numberOfCarts])
 
-  if (request.status === "failed") {
+  if (status === "failed") {
     return (
       <div>
-        <h1>{request.error ?? "There was an error!!!"}</h1>
+        <h1>{error ?? "There was an error!!!"}</h1>
       </div>
     )
   }
 
-  if (request.status === "loading" || request.status === "idle") {
+  if (status === "loading" || status === "idle") {
     return (
       <div>
         <h1>Loading...</h1>
