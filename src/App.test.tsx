@@ -134,7 +134,9 @@ describe("App", () => {
       await screen.findByText("Select the Quantity of Products to Fetch:"),
     ).toBeInTheDocument()
     expect(screen.getByText("Cart #1")).toBeInTheDocument()
-    expect(screen.getByText("Phone x 1")).toBeInTheDocument()
+    expect(
+      screen.getByText((_, element) => element?.textContent === "Phonex 1"),
+    ).toBeInTheDocument()
     expect(screen.getByText("Essence Mascara Lash Princess")).toBeInTheDocument()
     expect(screen.getByText("Tags: beauty, mascara")).toBeInTheDocument()
   })

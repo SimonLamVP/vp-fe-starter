@@ -22,8 +22,9 @@ export const Carts = (): JSX.Element | null => {
 
   if (status === "failed") {
     return (
-      <div>
-        <h1>{error ?? "There was an error!!!"}</h1>
+      <div className={styles.errorState}>
+        <p className={styles.errorLabel}>Basket feed unavailable</p>
+        <h3>{error ?? "There was an error!!!"}</h3>
       </div>
     )
   }
@@ -38,40 +39,61 @@ export const Carts = (): JSX.Element | null => {
 
   return (
     <div className={styles.container}>
-      <h3>Select the Quantity of Carts to Fetch:</h3>
-      <select
-        className={styles.select}
-        value={numberOfCarts}
-        onChange={e => {
-          setNumberOfCarts(Number(e.target.value))
-        }}
-      >
-        {options.map(option => (
-          <option key={option} value={option}>
-            {option}
-          </option>
+      <div className={styles.controls}>
+        <div>
+          <p className={styles.sectionLabel}>Open baskets</p>
+          <h3>Select the Quantity of Carts to Fetch:</h3>
+        </div>
+        <select
+          className={styles.select}
+          value={numberOfCarts}
+          onChange={e => {
+            setNumberOfCarts(Number(e.target.value))
+          }}
+        >
+          {options.map(option => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className={styles.cardGrid}>
+        {carts.map(cart => (
+          <article key={cart.id} className={styles.cartCard}>
+            <div className={styles.cardTopRow}>
+              <h4>Cart #{cart.id}</h4>
+              <span className={styles.orderPill}>User {cart.userId}</span>
+            </div>
+            <div className={styles.metricsRow}>
+              <div>
+                <span className={styles.metricLabel}>Products</span>
+                <strong>{cart.totalProducts}</strong>
+              </div>
+              <div>
+                <span className={styles.metricLabel}>Quantity</span>
+                <strong>{cart.totalQuantity}</strong>
+              </div>
+              <div>
+                <span className={styles.metricLabel}>Total</span>
+                <strong>${cart.total.toFixed(2)}</strong>
+              </div>
+              <div>
+                <span className={styles.metricLabel}>Discounted</span>
+                <strong>${cart.discountedTotal.toFixed(2)}</strong>
+              </div>
+            </div>
+            <ul className={styles.productList}>
+              {cart.products.map(product => (
+                <li key={product.id}>
+                  <span>{product.title}</span>
+                  <strong>x {product.quantity}</strong>
+                </li>
+              ))}
+            </ul>
+          </article>
         ))}
-      </select>
-      {carts.map(cart => (
-        <article key={cart.id} className={styles.cartCard}>
-          <h4>Cart #{cart.id}</h4>
-          <p className={styles.cartMeta}>
-            User: {cart.userId} | Products: {cart.totalProducts} | Quantity:{" "}
-            {cart.totalQuantity}
-          </p>
-          <p className={styles.cartMeta}>
-            Total: ${cart.total.toFixed(2)} | Discounted: $
-            {cart.discountedTotal.toFixed(2)}
-          </p>
-          <ul className={styles.productList}>
-            {cart.products.map(product => (
-              <li key={product.id}>
-                {product.title} x {product.quantity}
-              </li>
-            ))}
-          </ul>
-        </article>
-      ))}
+      </div>
     </div>
   )
 }

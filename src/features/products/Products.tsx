@@ -22,8 +22,9 @@ export const Products = (): JSX.Element | null => {
 
   if (status === "failed") {
     return (
-      <div>
-        <h1>{error ?? "There was an error!!!"}</h1>
+      <div className={styles.errorState}>
+        <p className={styles.errorLabel}>Product feed unavailable</p>
+        <h3>{error ?? "There was an error!!!"}</h3>
       </div>
     )
   }
@@ -42,34 +43,49 @@ export const Products = (): JSX.Element | null => {
 
   return (
     <div className={styles.container}>
-      <h3>Select the Quantity of Products to Fetch:</h3>
-      <select
-        className={styles.select}
-        value={numberOfProducts}
-        onChange={e => {
-          setNumberOfProducts(Number(e.target.value))
-        }}
-      >
-        {options.map(option => (
-          <option key={option} value={option}>
-            {option}
-          </option>
+      <div className={styles.controls}>
+        <div>
+          <p className={styles.sectionLabel}>Showroom picks</p>
+          <h3>Select the Quantity of Products to Fetch:</h3>
+        </div>
+        <select
+          className={styles.select}
+          value={numberOfProducts}
+          onChange={e => {
+            setNumberOfProducts(Number(e.target.value))
+          }}
+        >
+          {options.map(option => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className={styles.cardGrid}>
+        {products.map(product => (
+          <article key={product.id} className={styles.productCard}>
+            <div className={styles.cardTopRow}>
+              <span className={styles.categoryPill}>{product.category}</span>
+              <span className={styles.stockPill}>Stock {product.stock}</span>
+            </div>
+            <h4>{product.title}</h4>
+            <p className={styles.productMeta}>Brand: {product.brand ?? "N/A"}</p>
+            <div className={styles.metricsRow}>
+              <div>
+                <span className={styles.metricLabel}>Price</span>
+                <strong>${product.price.toFixed(2)}</strong>
+              </div>
+              <div>
+                <span className={styles.metricLabel}>Rating</span>
+                <strong>{product.rating}</strong>
+              </div>
+            </div>
+            <p className={styles.productDescription}>{product.description}</p>
+            <p className={styles.tagList}>Tags: {product.tags.join(", ")}</p>
+          </article>
         ))}
-      </select>
-      {products.map(product => (
-        <article key={product.id} className={styles.productCard}>
-          <h4>{product.title}</h4>
-          <p className={styles.productMeta}>
-            Brand: {product.brand ?? "N/A"} | Category: {product.category}
-          </p>
-          <p className={styles.productMeta}>
-            Price: ${product.price.toFixed(2)} | Rating: {product.rating} |
-            Stock: {product.stock}
-          </p>
-          <p className={styles.productDescription}>{product.description}</p>
-          <p className={styles.tagList}>Tags: {product.tags.join(", ")}</p>
-        </article>
-      ))}
+      </div>
     </div>
   )
 }

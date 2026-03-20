@@ -1,14 +1,119 @@
 .App {
   min-height: 100vh;
+  padding: 32px;
+  background:
+    radial-gradient(circle at top left, rgba(184, 220, 194, 0.8) 0%, rgba(184, 220, 194, 0) 32%),
+    linear-gradient(180deg, #eef3ec 0%, #e6ede5 48%, #dde6db 100%);
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.App-hero {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 24px;
+  padding: 28px;
+  border: 1px solid rgba(21, 62, 46, 0.12);
+  border-radius: 28px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(247, 250, 246, 0.86) 45%, rgba(230, 237, 229, 0.95) 100%),
+    linear-gradient(120deg, #0f4c3a 0%, #0d3d2f 100%);
+  box-shadow:
+    0 30px 60px rgba(24, 54, 39, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.App-brandRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.App-brandMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #0f4c3a;
+  color: #f8fbf8;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.App-brandName {
+  color: #234233;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.App-heroContent {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.9fr);
+  gap: 24px;
+  align-items: end;
+}
+
+.App-kicker {
+  margin-bottom: 12px;
+  color: #0f4c3a;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.App-hero h1 {
+  max-width: 12ch;
+  margin-bottom: 14px;
+  color: #153528;
+  font-size: clamp(2.3rem, 4vw, 4.4rem);
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+}
+
+.App-intro {
+  max-width: 54ch;
+  margin-bottom: 0;
+  color: #43604f;
+  font-size: 1rem;
+}
+
+.App-statGrid {
+  display: grid;
+  gap: 12px;
+}
+
+.App-statCard {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px;
+  border: 1px solid rgba(15, 76, 58, 0.12);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 14px 24px rgba(33, 61, 46, 0.08);
+}
+
+.App-statCard strong {
+  color: #13382a;
+  font-size: 1rem;
+}
+
+.App-statCard span {
+  color: #597265;
+}
+
+.App-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
   align-items: start;
-  padding: 28px;
-  background:
-    linear-gradient(180deg, #5aa3ff 0%, #3d7ae6 38%, #2e5db3 100%);
-  text-align: left;
-  box-sizing: border-box;
 }
 
 .App-panel {
@@ -16,33 +121,57 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid #245edb;
-  border-radius: 10px 10px 8px 8px;
-  background: linear-gradient(180deg, #f4f9ff 0%, #dcecff 100%);
+  border: 1px solid rgba(16, 64, 48, 0.1);
+  border-radius: 28px;
+  background: rgba(252, 253, 251, 0.94);
   box-shadow:
-    0 0 0 1px #9fc3ff,
-    0 10px 24px rgba(10, 50, 120, 0.28);
+    0 24px 48px rgba(24, 54, 39, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
 .App-titleBar {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 7px 12px;
-  color: #fff;
-  font-weight: 700;
-  letter-spacing: 0.15px;
-  text-shadow: 0 1px 0 rgba(0, 0, 80, 0.45);
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px 24px 18px;
+  border-bottom: 1px solid rgba(16, 64, 48, 0.08);
   background:
-    linear-gradient(180deg, #6eb6ff 0%, #3c8df6 45%, #1657d6 100%);
-  border-bottom: 1px solid #1d4eb1;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
-  font-size: 14px;
+    linear-gradient(180deg, #fdfdfb 0%, #f3f6f0 100%);
+}
+
+.App-panelEyebrow {
+  margin-bottom: 0;
+  color: #0f4c3a;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.App-titleBar h2 {
+  margin-bottom: 6px;
+  color: #163629;
+  font-size: 1.6rem;
+  letter-spacing: -0.03em;
+}
+
+.App-titleBar p {
+  margin-bottom: 0;
+  color: #577162;
 }
 
 @media (max-width: 900px) {
   .App {
-    grid-template-columns: 1fr;
     padding: 18px;
+  }
+
+  .App-hero {
+    padding: 22px;
+    border-radius: 24px;
+  }
+
+  .App-heroContent,
+  .App-grid {
+    grid-template-columns: 1fr;
   }
 }
