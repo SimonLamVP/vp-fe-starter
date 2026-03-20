@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { selectRequestStatus } from "../requestStatus/requestStatusSlice"
 import styles from "./Products.module.css"
 import { fetchProducts } from "./productThunks"
-import { selectProducts } from "./productSlice"
+import { selectProducts } from "./productSelectors"
 
 const options = [5, 10, 20, 30]
 
