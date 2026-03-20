@@ -2,7 +2,7 @@
   min-height: 100vh;
   padding: 32px;
   background:
-    radial-gradient(circle at top left, rgba(184, 220, 194, 0.8) 0%, rgba(184, 220, 194, 0) 32%),
+    radial-gradient(circle at top left, rgba(184, 220, 194, 0.8) 0%, #32aa3c 32%),
     linear-gradient(180deg, #eef3ec 0%, #e6ede5 48%, #dde6db 100%);
   text-align: left;
   box-sizing: border-box;
